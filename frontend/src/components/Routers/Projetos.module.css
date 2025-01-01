@@ -1,0 +1,226 @@
+.main {
+  display: flex;
+  position: relative;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+.main > header > h1 {
+  color: var(--corH1);
+  text-align: center;
+}
+.main > header > p {
+  color: var(--corP);
+  text-align: center;
+}
+.main > section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Duas colunas com tamanhos iguais */
+  gap: 16px; /* Espaçamento entre os itens */
+  justify-items: center; /* Centraliza os itens horizontalmente */
+  align-items: center; /* Centraliza os itens verticalmente */
+}
+
+.main > section > article {
+  border: 1px solid var(--corBorder);
+  border-radius: 8px;
+  width: 580px;
+  margin: 30px;
+  padding: 30px;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  background-color: white;
+  filter: drop-shadow(5px 5px 5px #ebe9e9);
+}
+.main > section > article > h3 {
+  margin-top: 15px;
+  width: 100%;
+  text-align: start;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 600;
+}
+.main > section > article > p {
+  color: var(--corH1);
+  margin-top: 15px;
+  width: 100%;
+  text-align: start;
+  font-size: 14px;
+}
+
+.main > section > article > header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+.main > section > article > header > aside {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  text-align: start;
+  width: 100%;
+}
+.main section > article > header > aside > a {
+  color: var(--cor60);
+  text-align: center;
+  display: flex; /* Configura um layout flex */
+  align-items: center; /* Alinha verticalmente o conteúdo ao centro */
+  justify-content: center; /* Alinha horizontalmente o conteúdo ao centro */
+}
+.main > section > article > header > aside > a:hover {
+  color: var(--cor30);
+  text-align: center;
+}
+
+.main > section > article > header > aside:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 60px;
+}
+.main > section > article > header > aside:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 60px;
+}
+
+.main > section > article > header > aside > img {
+  width: 48px; /* Tamanho do círculo */
+  height: 48px;
+  border-radius: 50%; /* Cria o formato circular */
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.main > section > article > header > aside > h2 {
+  font-size: 14px;
+  padding-left: 15px;
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.main > section > article > header > aside > p {
+  color: var(--corP);
+  font-size: 12px;
+}
+
+.main > section > article > aside {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: start;
+  text-align: start; /* Garante o alinhamento do texto */
+  margin-bottom: 15px;
+}
+
+.main > section > article > aside > p::first-letter {
+  padding-left: 0px;
+}
+.main > section > article > aside > p {
+  font-size: 12px;
+  color: var(--corH1);
+}
+.main > section > article > aside > p > a {
+  color: #0a66c2;
+}
+
+.main > section > article > img {
+  max-width: 100%; /* Garante que a largura da imagem não ultrapasse a do pai */
+  margin: auto;
+  height: auto; /* Mantém a proporção da imagem */
+  object-fit: contain; /* Ajusta o conteúdo da imagem ao espaço disponível */
+  display: block; /* Remove espaço extra gerado por imagens inline */
+}
+
+.main > section > article > footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #ccc;
+}
+
+.main > section > article > footer > button {
+  padding: 8px 15px;
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  color: #afaeae;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid var(--corBorder);
+  width: 96px;
+}
+.main > section > article > footer > button:hover {
+  background-color: #ccc;
+  color: var(--cor60);
+}
+
+.main > section > article > footer > aside {
+  border: none;
+
+  background-color: none;
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  color: #afaeae;
+  font-size: 14px;
+  width: 146px;
+}
+
+.main > section > article > footer > button:hover ~ aside {
+  color: var(--cor60);
+}
+
+@media (max-width: 1250px) {
+  .main > section {
+    display: grid;
+    grid-template-columns: repeat(
+      1,
+      1fr
+    ); /* Duas colunas com tamanhos iguais */
+    gap: 16px; /* Espaçamento entre os itens */
+    justify-items: center; /* Centraliza os itens horizontalmente */
+    align-items: center; /* Centraliza os itens verticalmente */
+  }
+}
+@media (max-width: 500px) {
+  .main > section > article {
+    width: 350px;
+    height: 640px;
+    margin: 10px;
+    padding: 10px;
+  }
+  .main > section > article > header > aside {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+  }
+  .main > section > article > aside > p a {
+    word-break: break-word; /* Permite a quebra de palavras longas */
+    overflow-wrap: break-word; /* Garante a quebra de palavras longas */
+    white-space: normal; /* Permite que o texto quebre em várias linhas */
+  }
+
+  .main > section > article > header > aside > p {
+    display: flex;
+    align-items: center;
+    text-align: center;  
+  }
+}
