@@ -3,6 +3,7 @@ import RenameTitle from "../Tools/RenameTitle";
 import style from "./Projetos.module.css";
 import { toast } from "react-toastify";
 import LoadingSVG from "../Item-Layout/Loading";
+import axios from "axios";
 
 import { BsLink, BsHandThumbsUp, BsHandThumbsUpFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
@@ -10,62 +11,20 @@ import { useEffect, useState } from "react";
 export default function Projetos() {
   const [DataBase, setDataBase] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [online, setOnline] = useState(false);
-  const [textBD, settextBD] = useState('');
   const [arrayIDLike, setArrayIDLike] = useState(
     JSON.parse(localStorage.getItem("arrayId")) || []
   );
 
-  useEffect(() => {
-    async function checkIfOnline() {
-      try {
-        const response = await fetch("http://localhost:5000/database", {
-          method: "HEAD",
-        }); // Apenas verifica a conexão
-        setOnline(true);
-        settextBD("database intern")
-        return response.ok; // Retorna true se o status for 200-299
-      } catch (error) {
-        settextBD("database extern")
-        setOnline(false);
-        return false; // Retorna false em caso de erro
-      }
-    }
-    checkIfOnline();
-  }, [setOnline]);
-
   const GetDataBase = async () => {
     try {
-      if (online) {
-        const url =
-          process.env.REACT_APP_API_URL ||
-          "http://localhost:5000/database";
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+      const res = await axios.get("https://portifolio-react-bd.vercel.app/");
 
-        const data = await response.json();
-        setTimeout(() => {
-          setLoading(false);
-          toast.success("Dados carregados com sucesso!");
-        }, 100);
-        setDataBase(data);
-      } else {
-        const url =
-          "https://raw.githubusercontent.com/CelioDS/Portifolio-React/refs/heads/main/frontend/src/components/backend/db.json";
+      setTimeout(() => {
+        setLoading(false);
+        toast.success("Dados carregados com sucesso!");
+      }, 100);
 
-        const response = await fetch(url);
-
-        const data = await response.json();
-        setTimeout(() => {
-          setLoading(false);
-          toast.success("Dados carregados com sucesso!");
-        }, 100);
-        setDataBase(data.database);
-      }
+      setDataBase(res.data);
     } catch (error) {
       toast.error("Erro na base de dados!");
     }
@@ -81,57 +40,49 @@ export default function Projetos() {
   }, [arrayIDLike]);
 
   const setLike = async (id) => {
-    const likeTrue = localStorage.getItem(id);
+    const IDString = String(id);
+
+    const likeTrue = localStorage.getItem(IDString);
+    const projetoID = DataBase.filter((data) => data.id === id);
+
+    if (!projetoID) return; // Se não encontrar o projeto, retorne
 
     try {
-      // 1. Busca o projeto pelo ID
-      const projetoResponse = await fetch(
-        `http://localhost:5000/database/${id}` ||
-          `https://celioportifolio.netlify.app/database/${id}`
-      );
-      if (!projetoResponse.ok) {
-        // Se a resposta não for bem-sucedida, lança um erro
-        throw new Error("Erro ao buscar o projeto.");
-      }
-
-      // 2. Converte a resposta em JSON para obter os dados do projeto
-      const projeto = await projetoResponse.json();
-
       // 3. Incrementa o valor de "like" do projeto
-      localStorage.setItem(id, "true");
-      let updatedLike = 0;
+
+      let updatedLike = projetoID[0].curtidas;
       if (likeTrue) {
-        updatedLike = projeto.like - 1;
-        localStorage.removeItem(id);
-        setArrayIDLike((prevArray) => prevArray.filter((item) => item !== id));
+        updatedLike -= 1;
+        localStorage.removeItem(IDString);
+        setArrayIDLike((prevArray) =>
+          prevArray.filter((item) => item !== IDString)
+        );
       } else {
-        updatedLike = projeto.like + 1;
+        localStorage.setItem(IDString, "true");
+        updatedLike += 1;
       }
 
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i); // Obtém a chave no índice atual
-        if (key === id) {
-          setArrayIDLike((prevArray) => [...prevArray, id]);
+
+        if (String(key) === IDString) {
+          setArrayIDLike((prevArray) => [...prevArray, IDString]);
         }
       }
 
       // 4. Atualiza o valor de "like" no backend usando o método PATCH
-      const updateResponse = await fetch(
-        `http://localhost:5000/database/${id}` ||
-          `https://celioportifolio.netlify.app/database/${id}`,
-        {
-          method: "PATCH", // Define que estamos fazendo uma atualização parcial
-          headers: {
-            "Content-Type": "application/json", // Define o tipo de conteúdo como JSON
-          },
-          body: JSON.stringify({ like: updatedLike }), // Envia o novo valor de "like"
-        }
-      );
-
-      if (!updateResponse.ok) {
-        // Se a atualização no backend falhar, lança um erro
-        throw new Error("Erro ao atualizar o like.");
-      }
+      await axios
+        .put(`https://portifolio-react-bd.vercel.app/${id}`, {
+          curtidas: updatedLike,
+          nome: projetoID[0].nome,
+          descricao: projetoID[0].descricao,
+          tecnologias: projetoID[0].tecnologias,
+          imagem: projetoID[0].imagem,
+          site: projetoID[0].site,
+          repositorio: projetoID[0].repositorio,
+        })
+        .then(({ data }) => toast.success(data))
+        .catch(({ data }) => toast.error(data));
 
       // 5. Atualiza o estado local para refletir o novo valor de "like"
       setDataBase((prev) =>
@@ -139,12 +90,11 @@ export default function Projetos() {
           (item) =>
             // Para cada item no estado, verifica se o ID corresponde ao item atualizado
             item.id === id
-              ? { ...item, like: updatedLike } // Atualiza o valor de "like" no item correspondente
+              ? { ...item, curtidas: updatedLike } // Atualiza o valor de "like" no item correspondente
               : item // Mantém os itens que não foram atualizados inalterados
         )
       );
-
-      // toast.success("Like atualizado com sucesso!");
+      console.log(DataBase);
     } catch (error) {
       // 7. Captura e exibe qualquer erro que ocorrer durante o processo
       toast.error("Erro ao processar o like: " + error.message);
@@ -157,7 +107,7 @@ export default function Projetos() {
       <main className={style.main}>
         <RenameTitle initialTitle={"C&Lio - Projetos"} />
         <header>
-          <h1> projetos {textBD}</h1>
+          <h1> projetos</h1>
           <p>Aqui esta alguns do meus projetos.</p>
         </header>
         {loading && <LoadingSVG />}
@@ -173,9 +123,9 @@ export default function Projetos() {
                 site,
                 tecnologias,
                 imagem,
-                like,
+                curtidas,
               }) => (
-                <article key={id}>
+                <article key={String(id)}>
                   <header>
                     <aside>
                       <img
@@ -243,50 +193,66 @@ export default function Projetos() {
                   <footer>
                     <button
                       aria-label={
-                        arrayIDLike.includes(id) ? "Descurtir" : "Curtir"
+                        arrayIDLike.includes(String(id))
+                          ? "Descurtir"
+                          : "Curtir"
                       }
-                      title={arrayIDLike.includes(id) ? "Descurtir" : "Curtir"}
+                      title={
+                        arrayIDLike.includes(String(id))
+                          ? "Descurtir"
+                          : "Curtir"
+                      }
                       style={{
-                        background: arrayIDLike.includes(id) ? "#07083b" : "",
-                        color: arrayIDLike.includes(id) ? "#b98639" : "",
+                        background: arrayIDLike.includes(String(id))
+                          ? "#07083b"
+                          : "",
+                        color: arrayIDLike.includes(String(id))
+                          ? "#b98639"
+                          : "",
                       }}
                       onClick={() => {
                         setLike(id);
                       }}
                     >
-                      {arrayIDLike.includes(id) ? (
+                      {arrayIDLike.includes(String(id)) ? (
                         <BsHandThumbsUpFill
                           style={{
-                            color: arrayIDLike.includes(id) ? "#b98639" : "",
+                            color: arrayIDLike.includes(String(id))
+                              ? "#b98639"
+                              : "",
                           }}
                         />
                       ) : (
                         <BsHandThumbsUp />
                       )}
                       &nbsp; &nbsp;
-                      {arrayIDLike.includes(id) ? "Curtiu" : "Curtir"}
+                      {arrayIDLike.includes(String(id)) ? "Curtiu" : "Curtir"}
                     </button>
 
                     <aside
                       style={{
-                        color: arrayIDLike.includes(id) ? "#b98639" : "",
+                        color: arrayIDLike.includes(String(id))
+                          ? "#b98639"
+                          : "",
                       }}
                     >
-                      {arrayIDLike.includes(id) ? (
+                      {arrayIDLike.includes(String(id)) ? (
                         <BsHandThumbsUpFill
                           style={{
-                            color: arrayIDLike.includes(id) ? "#b98639" : "",
+                            color: arrayIDLike.includes(String(id))
+                              ? "#b98639"
+                              : "",
                           }}
                         />
                       ) : (
                         <BsHandThumbsUp />
                       )}
                       &nbsp;
-                      {like > 1 && arrayIDLike.includes(id)
-                        ? `Voce e ${like - 1} ${
-                            like > 2 ? "pessoas" : "pessoa"
+                      {curtidas > 1 && arrayIDLike.includes(String(id))
+                        ? `Voce e ${curtidas - 1} ${
+                            curtidas > 2 ? "pessoas" : "pessoa"
                           } `
-                        : like}
+                        : curtidas}
                     </aside>
                   </footer>
                 </article>
