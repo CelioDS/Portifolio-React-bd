@@ -14,6 +14,7 @@ export default function Projetos() {
   const [arrayIDLike, setArrayIDLike] = useState(
     JSON.parse(localStorage.getItem("arrayId")) || []
   );
+  const [handleSubmit, setHandleSubmit] = useState(true);
 
   const GetDataBase = async () => {
     try {
@@ -45,9 +46,8 @@ export default function Projetos() {
     const likeTrue = localStorage.getItem(IDString);
     const projetoID = DataBase.filter((data) => data.id === id);
 
-   
-
-    if (!projetoID) return; // Se não encontrar o projeto, retorne
+    if (!projetoID || !handleSubmit) return; // Se não encontrar o projeto, retorne
+    setHandleSubmit(false);
 
     try {
       // 3. Incrementa o valor de "like" do projeto
@@ -83,7 +83,7 @@ export default function Projetos() {
           site: projetoID[0].site,
           repositorio: projetoID[0].repositorio,
         })
-        .then(({ data }) => toast.success(data))
+        .then(({ data }) => /*toast.success(data)*/ "")
         .catch(({ data }) => toast.error(data));
 
       // 5. Atualiza o estado local para refletir o novo valor de "like"
@@ -96,7 +96,9 @@ export default function Projetos() {
               : item // Mantém os itens que não foram atualizados inalterados
         )
       );
-      
+
+      GetDataBase();
+      setHandleSubmit(true);
     } catch (error) {
       // 7. Captura e exibe qualquer erro que ocorrer durante o processo
       toast.error("Erro ao processar o like: " + error.message);
@@ -144,7 +146,7 @@ export default function Projetos() {
                     </aside>
                     <aside>
                       <a
-                        href="https://github.com/CelioDS/Projetos-PHP/tree/main/loginBanco"
+                        href="https://www.linkedin.com/in/celiodasilva01/"
                         target="_blank"
                         rel="noopener noreferrer"
                         title="Veja o repositorio no GitHub"

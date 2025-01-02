@@ -8,7 +8,7 @@ export default function Loading() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setTextoLoading("ERRO : Falha ao carregar os dados... ");
-    }, 1000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
