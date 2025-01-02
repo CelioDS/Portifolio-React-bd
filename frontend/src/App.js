@@ -12,8 +12,9 @@ function App() {
       <Outlet />
       <ToastContainer
         pauseOnHover={false}
-        autoClose={3000}
+        autoClose={300}
         position="bottom-right"
+        limit={2}
       />
       <Footer />
     </div>
