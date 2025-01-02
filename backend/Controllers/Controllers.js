@@ -46,7 +46,8 @@ export const updateDB = (req, res) => {
   dataBase.query(query, [...values, req.params.id], (err) => {
     if (err) return res.json(err);
 
-    return res.status(200).json("");
+    //return res.status(200).json("portifolio atualizado");
+    return res.status(200);
   });
 };
 
