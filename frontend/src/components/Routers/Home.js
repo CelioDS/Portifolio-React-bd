@@ -10,10 +10,9 @@ export default function Home() {
         <RenameTitle initialTitle={"C&Lio - Home"} />
         <h1>Bem-vindo ao meu portfólio!</h1>
         <p>
-          Olá, eu sou o Célio, um entusiasta da tecnologia em constante
-          aprendizado. Atualmente, estou me dedicando aos estudos para me tornar
-          um desenvolvedor Full Stack. Sou movido pela curiosidade e pela paixão
-          por aprender, especialmente sobre tudo o que envolve ciência e
+          Olá, eu sou o Célio, atualmente estou me dedicando aos estudos para me
+          tornar um desenvolvedor Full Stack. Sou movido pela curiosidade e pela
+          paixão por aprender, especialmente sobre tudo o que envolve ciência e
           tecnologia.
         </p>
         <h1>Sobre mim</h1>
@@ -24,12 +23,17 @@ export default function Home() {
           meio da tecnologia.
         </p>
         <p>
-          Com experiência em desenvolvimento e análise de dados. Programação:
-          HTML, CSS, JavaScript, SQL, ReactJS, NodeJS, PHP e Python Análise de
-          Dados: Excel, Power BI, SQL e Python. Além disso, tenho experiência
-          como Assistente de TI, atuando em atendimento e suporte ao cliente,
-          instalação de software e desenvolvimento de websites com uso de
-          JavaScript, React, CSS e HTML
+          Com experiência em desenvolvimento e análise de dados.
+          <br />
+          &nbsp;&nbsp;&nbsp;&nbsp;-Análise de Dados: Excel, Power BI, SQL e
+          Python.
+          <br />
+          &nbsp;&nbsp;&nbsp;&nbsp;-Programação: HTML, CSS, JavaScript, SQL,
+          ReactJS, NodeJS, PHP e Python
+          <br />
+          <br /> Além disso, tenho experiência como Assistente de TI, atuando em
+          atendimento e suporte ao cliente, instalação de software e
+          desenvolvimento de websites com uso de JavaScript, React, CSS e HTML
         </p>
         <h1>Experiências</h1>
         <ul>
@@ -47,10 +51,7 @@ export default function Home() {
         </ul>
 
         <footer>
-          <LinkButton
-            to="/Projetos"
-            text={"veja os projetos"}
-          />
+          <LinkButton to="/Projetos" text={"veja os projetos"} />
 
           <a
             className={style.btnCV}
