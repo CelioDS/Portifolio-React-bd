@@ -1,10 +1,10 @@
 import mysql from "mysql";
 
 export const dataBase = mysql.createConnection({
-  host: "db4free.net",
-  user: "teste01ada",
-  password: "PZXvAFdxa.bh2Yg",
-  database: "teste01ada",
+  host: process.env.REACT_APP_DB_HOST,
+  user: process.env.REACT_APP_DB_USER,
+  password: process.env.REACT_APP_DB_PASS,
+  database: process.env.REACT_APP_DB_NAME,
 });
 
 dataBase.connect((err) => {

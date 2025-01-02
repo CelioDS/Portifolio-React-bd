@@ -18,7 +18,7 @@ export default function Projetos() {
 
   const GetDataBase = async () => {
     try {
-      const res = await axios.get("https://portifolio-react-bd.vercel.app/");
+      const res = await axios.get(process.env.REACT_APP_DB_API);
 
       setTimeout(() => {
         setLoading(false);
@@ -74,7 +74,7 @@ export default function Projetos() {
 
       // 4. Atualiza o valor de "like" no backend usando o método PATCH
       await axios
-        .put(`https://portifolio-react-bd.vercel.app/${id}`, {
+        .put(process.env.REACT_APP_DB_API + id, {
           curtidas: updatedLike,
           nome: projetoID[0].nome,
           descricao: projetoID[0].descricao,
