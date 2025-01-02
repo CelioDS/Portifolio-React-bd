@@ -47,7 +47,7 @@ export const updateDB = (req, res) => {
     if (err) return res.json(err);
 
     //return res.status(200).json("portifolio atualizado");
-    return res.status(200);
+    return res.status(200).json();
   });
 };
 

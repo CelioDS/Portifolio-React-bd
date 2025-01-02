@@ -45,6 +45,8 @@ export default function Projetos() {
     const likeTrue = localStorage.getItem(IDString);
     const projetoID = DataBase.filter((data) => data.id === id);
 
+   
+
     if (!projetoID) return; // Se não encontrar o projeto, retorne
 
     try {
@@ -94,7 +96,7 @@ export default function Projetos() {
               : item // Mantém os itens que não foram atualizados inalterados
         )
       );
-      console.log(DataBase);
+      
     } catch (error) {
       // 7. Captura e exibe qualquer erro que ocorrer durante o processo
       toast.error("Erro ao processar o like: " + error.message);
