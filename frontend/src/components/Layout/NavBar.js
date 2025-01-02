@@ -88,7 +88,7 @@ export default function NavBar() {
       <nav>
         <LinkButton
           to="/"
-          text={"C&Lio Portifolio"}
+          text={"C&Lio"}
           extStyle={true}
           className={styleExt.logo}
         />
