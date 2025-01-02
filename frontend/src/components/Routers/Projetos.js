@@ -74,7 +74,7 @@ export default function Projetos() {
 
       // 4. Atualiza o valor de "like" no backend usando o método PATCH
       await axios
-        .put(process.env.REACT_APP_DB_API + id, {
+        .put(process.env.REACT_APP_DB_API + IDString, {
           curtidas: updatedLike,
           nome: projetoID[0].nome,
           descricao: projetoID[0].descricao,
