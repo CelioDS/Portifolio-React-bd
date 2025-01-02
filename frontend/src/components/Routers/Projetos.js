@@ -83,7 +83,7 @@ export default function Projetos() {
           site: projetoID[0].site,
           repositorio: projetoID[0].repositorio,
         })
-        .then(({ data }) => /*toast.success(data)*/ "")
+        .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
 
       // 5. Atualiza o estado local para refletir o novo valor de "like"
