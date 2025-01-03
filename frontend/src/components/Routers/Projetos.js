@@ -97,6 +97,7 @@ export default function Projetos() {
         )
       );
 
+      GetDataBase();
       setHandleSubmit(true);
     } catch (error) {
       // 7. Captura e exibe qualquer erro que ocorrer durante o processo
