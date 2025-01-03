@@ -54,7 +54,8 @@ export default function Projetos() {
 
       let updatedLike = projetoID[0].curtidas;
       if (likeTrue) {
-        updatedLike -= 1;
+        if (updatedLike > 0) updatedLike -= 1;
+
         localStorage.removeItem(IDString);
         setArrayIDLike((prevArray) =>
           prevArray.filter((item) => item !== IDString)
@@ -97,6 +98,7 @@ export default function Projetos() {
         )
       );
 
+    
       //GetDataBase();
       setHandleSubmit(true);
     } catch (error) {
@@ -253,7 +255,7 @@ export default function Projetos() {
                       )}
                       &nbsp;
                       {curtidas > 1 && arrayIDLike.includes(String(id))
-                        ? `Voce e ${curtidas > 0 ? curtidas - 1 : curtidas} ${
+                        ? `Voce e ${curtidas - 1} ${
                             curtidas > 2 ? "pessoas" : "pessoa"
                           } `
                         : curtidas}
