@@ -74,7 +74,7 @@ export default function Projetos() {
 
       // 4. Atualiza o valor de "like" no backend usando o método PATCH
       await axios
-        .put(process.env.REACT_APP_DB_API + id, {
+        .put(process.env.REACT_APP_DB_API + `/${id}`, {
           curtidas: updatedLike,
           nome: projetoID[0].nome,
           descricao: projetoID[0].descricao,
@@ -83,7 +83,7 @@ export default function Projetos() {
           site: projetoID[0].site,
           repositorio: projetoID[0].repositorio,
         })
-        .then(({ data }) => /*toast.success(data)*/ "")
+        .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
 
       // 5. Atualiza o estado local para refletir o novo valor de "like"
@@ -97,7 +97,6 @@ export default function Projetos() {
         )
       );
 
-      GetDataBase();
       setHandleSubmit(true);
     } catch (error) {
       // 7. Captura e exibe qualquer erro que ocorrer durante o processo

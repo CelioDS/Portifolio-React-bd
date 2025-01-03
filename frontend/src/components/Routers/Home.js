@@ -11,9 +11,9 @@ export default function Home() {
         <h1>Bem-vindo ao meu portfólio!</h1>
         <p>
           Olá, eu sou o Célio, atualmente estou me dedicando aos estudos para me
-          tornar um desenvolvedor Full Stack. Sou movido pela curiosidade e pela
-          paixão por aprender, especialmente sobre tudo o que envolve ciência e
-          tecnologia.
+          tornar um desenvolvedor Full Stack e analista de dados. Sou movido
+          pela curiosidade e pela paixão por aprender, especialmente sobre tudo
+          o que envolve ciência e tecnologia.
         </p>
         <h1>Sobre mim</h1>
         <p>
@@ -22,20 +22,13 @@ export default function Home() {
           em explorar soluções inovadoras e transformar ideias em realidade por
           meio da tecnologia.
         </p>
-        <p>
-          Com experiência em desenvolvimento e análise de dados.
-          <br />
-          &nbsp;&nbsp;&nbsp;&nbsp;-Análise de Dados: Excel, Power BI, SQL e
-          Python.
-          <br />
-          &nbsp;&nbsp;&nbsp;&nbsp;-Programação: HTML, CSS, JavaScript, SQL,
-          ReactJS, NodeJS, PHP e Python
-          <br />
-          <br /> Além disso, tenho experiência como Assistente de TI, atuando em
-          atendimento e suporte ao cliente, instalação de software e
-          desenvolvimento de websites com uso de JavaScript, React, CSS e HTML
-        </p>
+
         <h1>Experiências</h1>
+        <p>
+          Tenho experiência como Assistente de TI, atuando em atendimento e
+          suporte ao cliente, instalação de software e desenvolvimento de
+          websites com uso de Css, Html, MySQL, JavaScript, NodeJS e ReactJS.
+        </p>
         <ul>
           <li>
             <strong>Front-End:</strong> Html, Css, JavaScript, Bootstrap e
@@ -43,7 +36,7 @@ export default function Home() {
           </li>
           <li>
             <strong>Back-End:</strong> Criação de APIs REST utilizando PHP, SQL,
-            Node.js e MySQL.
+            NodeJS e MySQL.
           </li>
           <li>
             <strong>Analise de Dados:</strong> SQL, Excel, PowerBI e Python.
@@ -59,6 +52,7 @@ export default function Home() {
             download=""
             id="btn"
             title="Baixar curriculo"
+            aria-label="Baixar curriculo "
           >
             Download CV
           </a>
