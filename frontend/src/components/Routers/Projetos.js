@@ -97,7 +97,7 @@ export default function Projetos() {
         )
       );
 
-      GetDataBase();
+      //GetDataBase();
       setHandleSubmit(true);
     } catch (error) {
       // 7. Captura e exibe qualquer erro que ocorrer durante o processo
@@ -253,7 +253,7 @@ export default function Projetos() {
                       )}
                       &nbsp;
                       {curtidas > 1 && arrayIDLike.includes(String(id))
-                        ? `Voce e ${curtidas - 1} ${
+                        ? `Voce e ${curtidas > 0 ? curtidas - 1 : curtidas} ${
                             curtidas > 2 ? "pessoas" : "pessoa"
                           } `
                         : curtidas}
