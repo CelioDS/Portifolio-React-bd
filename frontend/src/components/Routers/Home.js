@@ -48,7 +48,7 @@ export default function Home() {
 
           <a
             className={style.btnCV}
-            href="/arquivos/CelioDaSilvaTI.pdf"
+            href="/arquivos/CelioSilvaTI.pdf"
             download=""
             id="btn"
             title="Baixar curriculo"
